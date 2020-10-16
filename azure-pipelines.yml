@@ -10,8 +10,10 @@ pool:
   vmImage: "windows-latest"
 
 steps:
-- script: dotnet build
-  displayName: 'Build dotnet binaries'
+- task: DotNetCoreCLI@2
+  displayName: 'Build Blazor Project'
+  inputs:
+    command: build
 - task: PublishBuildArtifacts@1
   displayName: "Publish to staging"
   inputs:
