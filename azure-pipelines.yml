@@ -15,15 +15,15 @@ steps:
   inputs:
     command: build
     projects: '**/*.csproj'
-- task: PublishBuildArtifacts@1
-  displayName: "Publish to staging"
+- task: DotNetCoreCLI@2
+  displayName: 'Publish'
   inputs:
-    pathToPublish: '$(Build.ArtifactStagingDirectory)'
-    artifactName: 'drop' 
+    command: publish
+    arguments: '--configuration $(BuildConfiguration) --output $(Build.ArtifactStagingDirectory)'
 - task: AzureFileCopy@3
   displayName: "Copy the bundle to pwa Storage Accunt"
   inputs:
-      SourcePath: "$(Build.Repository.LocalPath)/bin/Debug/netstandard2.1/wwwroot"
+      SourcePath: "$(Build.ArtifactStagingDirectory)/drop"
       azureSubscription: "web-deploy-service-connection"
       Destination: "AzureBlob"
       storage: "pwaappstorage"
