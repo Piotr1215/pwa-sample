@@ -23,6 +23,7 @@ steps:
   inputs:
     command: publish
     arguments: '--configuration Release --output $(Build.ArtifactStagingDirectory)'
+    zipAfterPublish: false
 
 - task: PublishBuildArtifacts@1
   displayName: "Upload Artifacts"
@@ -33,7 +34,7 @@ steps:
 - task: AzureFileCopy@3
   displayName: "Copy the bundle to pwa Storage Accunt"
   inputs:
-      SourcePath: "$(Build.ArtifactStagingDirectory)"
+      SourcePath: "$(Build.ArtifactStagingDirectory)/wwwroot"
       azureSubscription: "web-deploy-service-connection"
       Destination: "AzureBlob"
       storage: "pwaappstorage"
