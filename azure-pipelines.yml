@@ -23,7 +23,7 @@ steps:
 - task: AzureFileCopy@3
   displayName: "Copy the bundle to pwa Storage Accunt"
   inputs:
-      SourcePath: "$(Build.ArtifactStagingDirectory)/drop"
+      SourcePath: "$(Build.Repository.LocalPath)/bin/Debug/netstandard2.1/wwwroot"
       azureSubscription: "web-deploy-service-connection"
       Destination: "AzureBlob"
       storage: "pwaappstorage"
