@@ -21,7 +21,7 @@ steps:
   displayName: "Copy the bundle to pwa Storage Accunt"
   inputs:
       SourcePath: "$(Build.ArtifactStagingDirectory)/drop"
-      azureSubscription: "FME-GRD-DEV"
+      azureSubscription: "web-deploy-service-connection"
       Destination: "AzureBlob"
       storage: "pwaappstorage"
       ContainerName: "$web"
