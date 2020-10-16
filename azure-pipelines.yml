@@ -14,6 +14,7 @@ steps:
   displayName: 'Build Blazor Project'
   inputs:
     command: build
+    projects: '**/*.csproj'
 - task: PublishBuildArtifacts@1
   displayName: "Publish to staging"
   inputs:
