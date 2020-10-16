@@ -5,7 +5,7 @@
 
 trigger:
   branches:
-    exclude:
+    include:
       - master
 
 pool:
@@ -34,7 +34,7 @@ steps:
 - task: AzureFileCopy@3
   displayName: "Copy the bundle to pwa Storage Accunt"
   inputs:
-      SourcePath: "$(Build.ArtifactStagingDirectory)"
+      SourcePath: "$(Build.ArtifactStagingDirectory)/s/wwwroot"
       azureSubscription: "web-deploy-service-connection"
       Destination: "AzureBlob"
       storage: "pwaappstorage"
