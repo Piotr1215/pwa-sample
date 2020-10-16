@@ -3,27 +3,48 @@
 <h1>Sample PWA App</h1>
 
 <h2>This sample app demonstrates PWA capabilities</h2>
+<br>
+<section>
 
-<ul>
-    <li>Open App in browser, do you see install icon? <img src="install-button.png" alt="install icon" srcset="">
-    </li>
-    <li>Can you add the app to taskbar? Do you see the app in start menu?</li>
-    <li>Navigate to the address on you mobile device and follow those steps to add app to homescreen</li>
+    <h3>App installation - Desktop</h3>
 
-    <ol class="list-group">
-        <li class="list-group-item">Open up Safari and load a web site.</li>
-        <li class="list-group-item">At the bottom of the screen is the share icon <img
-            src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c8/Ei-share-apple.svg/768px-Ei-share-apple.svg.png"
-            alt="apple share icon" srcset="" height="20" width="20">. </li>
-        <li class="list-group-item">You will need to slide the icons to reveal the 'Add to Homescreen' button.</li>
+    <p>Open App in browser, do you see install icon? Click it and install the app.
+        <div style="text-align: left"><img src="install-button.png" alt="install icon" srcset=""></div>
+    </p>
+    <p>Can you add the app to taskbar? Do you see the app in start menu?</p>
+    <h3>App installation - Mobile</h3>
+    <p>Navigate to the address on you mobile device and follow those steps to add app to homescreen</p>
+    <ol>
+        <li>Open up Safari and load a web site.</li>
+        <li>At the bottom of the screen is the share icon
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c8/Ei-share-apple.svg/768px-Ei-share-apple.svg.png"
+            alt="apple share icon" srcset="" height="20" width="20">.
+        </li>
+        <li>You will need to slide the icons to reveal the 'Add to Homescreen' button.</li>
     </ol>
+    <h3>App update - Desktop</h3>
+    <p>Wait for the app update, click Ctrl + F5 in browser to refresh content</p>
 
-    <li>Wait for the app update, click Ctrl + F5 in browser to refresh content and slide down on mobile device</li>
-</ul>
+    <h3>App Offline Mode - Desktop</h3>
 
-<em>By modyfing the service worker the app can:</em>
-<ol>
-    <li>Force app install on first load</li>
-    <li>Force update once new version is available (this requires some backend logic)</li>
-    <li>Invalidate cache on remote demand etc</li>
-</ol>
+    <p>On your PC run the site in offline mode (chrome):
+        <div style="text-align: left"><img src="dev-tools.png" alt="Chrome Dev Tools"></div>
+    </p>
+
+    <ol>
+        <li>Press F12 to show developer tools</li>
+        <li>Got to <em>Network</em> section and sepect <em>Offline</em> from drop-down menu</li>
+        <li>Refresh the page (F5), does it still work?</li>
+    </ol>
+</section>
+
+<section>
+    <h3>Further capabilities</h3>
+
+    <em>By modyfing the service worker the app can:</em>
+    <ol>
+        <li>Force app install on first load</li>
+        <li>Force update once new version is available (this requires some backend logic)</li>
+        <li>Invalidate cache on remote demand etc</li>
+    </ol>
+</section>
