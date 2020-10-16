@@ -1,0 +1,27 @@
+# Starter pipeline
+# Start with a minimal pipeline that you can customize to build and deploy your code.
+# Add steps that build, run tests, deploy, and more:
+# https://aka.ms/yaml
+
+trigger:
+- master
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+steps:
+- script: dotnet build
+  displayName: 'Build dotnet binaries'
+- task: PublishBuildArtifacts@1
+  displayName: "Publish to staging"
+  inputs:
+    pathToPublish: '$(Build.ArtifactStagingDirectory)'
+    artifactName: 'drop' 
+- task: AzureFileCopy@3
+  displayName: "Copy the bundle to pwa Storage Accunt"
+  inputs:
+      SourcePath: "$(Build.ArtifactStagingDirectory)/drop"
+      azureSubscription: "FME-GRD-DEV"
+      Destination: "AzureBlob"
+      storage: "pwaappstorage"
+      ContainerName: "$web"
