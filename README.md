@@ -5,6 +5,6 @@ Sample PWA app written in [BLAZOR](https://dotnet.microsoft.com/apps/aspnet/web-
 ## Deployment
 
 - JAM stack style deployment to Neflity: https://pwa-blazor.netlify.app/
-- Docker image on Docker HUB:
+- Docker image on Docker HUB: https://hub.docker.com/repository/docker/piotrzan/blazorindocker
 
 ![.NET Core](https://github.com/Piotr1215/pwa-sample/workflows/.NET%20Core/badge.svg?branch=master)
