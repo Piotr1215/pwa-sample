@@ -49,13 +49,15 @@ This deployment is live under: https://pwa-blazor.netlify.app/
 
 This deployment is live under: https://hub.docker.com/repository/docker/piotrzan/blazorindocker
 
+![Docker Build](https://img.shields.io/docker/cloud/build/piotrzan/blazorindocker.svg)
+
 Deployment is done using Docker HUB build feature based on below simplistic Dockerfile
 
 ``` Dockerfile
 FROM mcr.microsoft.com/dotnet/core/sdk:3.1 AS build-env
 WORKDIR /app
 COPY . ./
-RUN dotnet publish -c Release -o output
+RUN pwa-
 FROM nginx:alpine
 WORKDIR /var/www/web
 COPY --from=build-env /app/output/wwwroot .
