@@ -1,30 +1,32 @@
-name: .NET Core
+name: Deploy to Netlify
 
 on:
   push:
-    branches: [ master ]
-  pull_request:
     branches: [ master ]
 
 jobs:
   build:
     runs-on: ubuntu-latest
+    name: Deploying to Netlify
     steps:
-    - uses: actions/checkout@master # Checkout the master branch
+    - uses: actions/checkout@master
+
     - name: Setup .NET Core
-      uses: actions/setup-dotnet@v1 # Setup .NET Core
+      uses: actions/setup-dotnet@v1
       with:
-        dotnet-version: 3.1.300 # Change to your version of .NET Core
+        dotnet-version: 3.1.300
+
     - name: Build with dotnet
-      run: dotnet build --configuration Release 
-    - name: Publish Blazor webassembly using dotnet 
-      #create Blazor WebAssembly dist output folder in the project directory
-      run: dotnet publish -c Release --no-build -o publishoutput # Don't build again, just publish
+      run: dotnet build --configuration Release
+
+    - name: Publish Blazor webassembly using dotnet
+      run: dotnet publish -c Release --no-build -o publishoutput
+
     - name: Publish generated Blazor webassembly to Netlify
-      uses: netlify/actions/cli@master #uses Netlify Cli actions
-      env: # These are the environment variables added in GitHub Secrets for this repo
+      uses: netlify/actions/cli@master
+      env:
           NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
           NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
       with:
-          args: deploy --dir=publishoutput/wwwroot --prod #push this folder to Netlify
-          secrets: '["NETLIFY_AUTH_TOKEN", "NETLIFY_SITE_ID"]' 
+          args: deploy --dir=publishoutput/wwwroot --prod
+          secrets: '["NETLIFY_AUTH_TOKEN", "NETLIFY_SITE_ID"]'
