@@ -4,40 +4,46 @@ Sample PWA app written in [BLAZOR](https://dotnet.microsoft.com/apps/aspnet/web-
 
 ## Deployment Options
 
+### GitHub Pages
+
+<script src="https://gist.github.com/Piotr1215/93e9333199b5d2a6bd5f320506c9c1e6.js"></script>
+
 ### [Neflify](https://www.netlify.com/) JAM Stack
 
 Deployed with [Github actions](https://docs.github.com/en/free-pro-team@latest/actions)
 
 ``` yaml
-name: .NET Core
+name: Deploy to Netlify
 
 on:
   push:
-    branches: [ master ]
-  pull_request:
     branches: [ master ]
 
 jobs:
   build:
     runs-on: ubuntu-latest
+    name: Deploying to Netlify
     steps:
-    - uses: actions/checkout@master # Checkout the master branch
+    - uses: actions/checkout@master
+
     - name: Setup .NET Core
-      uses: actions/setup-dotnet@v1 # Setup .NET Core
+      uses: actions/setup-dotnet@v1
       with:
-        dotnet-version: 3.1.300 # Change to your version of .NET Core
+        dotnet-version: 3.1.300
+
     - name: Build with dotnet
       run: dotnet build --configuration Release
+
     - name: Publish Blazor webassembly using dotnet
-      #create Blazor WebAssembly dist output folder in the project directory
-      run: dotnet publish -c Release --no-build -o publishoutput # Don't build again, just publish
+      run: dotnet publish -c Release --no-build -o publishoutput
+
     - name: Publish generated Blazor webassembly to Netlify
-      uses: netlify/actions/cli@master #uses Netlify Cli actions
-      env: # These are the environment variables added in GitHub Secrets for this repo
+      uses: netlify/actions/cli@master
+      env:
           NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
           NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
       with:
-          args: deploy --dir=publishoutput/wwwroot --prod #push this folder to Netlify
+          args: deploy --dir=publishoutput/wwwroot --prod
           secrets: '["NETLIFY_AUTH_TOKEN", "NETLIFY_SITE_ID"]'
 ```
 
@@ -90,10 +96,7 @@ Access the URL on [localhost:5010](http://localhost:5010/)
 You can also deploy to Azure using Azure Pipelines as Code:
 
 ``` yaml
-# Starter pipeline
-# Start with a minimal pipeline that you can customize to build and deploy your code.
-# Add steps that build, run tests, deploy, and more:
-# https://aka.ms/yaml
+name: Deploy to Azure Storage Account
 
 trigger:
   branches:
@@ -146,29 +149,39 @@ Surge is a Static Web publishing for Front-End Developers
 Simple, single-command web publishing. Publish HTML, CSS, and JS for free, without leaving the command line.
 
 ``` yml
-name: Deploy Website
+name: Deploy to Surge
 
-on: [push]
+on:
+  push:
+    branches: [ master ]
 
 jobs:
   build:
     runs-on: ubuntu-latest
     name: Deploying to surge
+
     steps:
       - uses: actions/checkout@v1
+
       - name: Install surge and fire deployment
         uses: actions/setup-node@v1
         with:
           node-version: 8
+
+      - name: Install surge CLI
+        run: npm install -g surge
+
       - name: Setup .NET Core
-        uses: actions/setup-dotnet@v1 # Setup .NET Core
+        uses: actions/setup-dotnet@v1
         with:
-          dotnet-version: 3.1.300 # Change to your version of .NET Core
+          dotnet-version: 3.1.300
+
       - name: Build with dotnet
         run: dotnet build --configuration Release
+
       - name: Publish Blazor webassembly using dotnet
-      #create Blazor WebAssembly dist output folder in the project directory
-        run: dotnet publish -c Release --no-build -o publishoutput # Don't build again, just publish
-      - run: npm install -g surge
-      - run: surge publishoutput/wwwroot ${{ secrets.SURGE_DOMAIN }} --token ${{ secrets.SURGE_TOKEN }}
+        run: dotnet publish -c Release --no-build -o publishoutput
+
+      - name: Publish to Surge
+        run: surge publishoutput/wwwroot ${{ secrets.SURGE_DOMAIN }} --token ${{ secrets.SURGE_TOKEN }}
 ```
