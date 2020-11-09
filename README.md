@@ -137,3 +137,38 @@ steps:
       storage: "yourblobstorage"
       ContainerName: "$web"
 ```
+
+### Surge
+
+Deployment is live under: https://pwa-sample.surge.sh/
+
+Surge is a Static Web publishing for Front-End Developers
+Simple, single-command web publishing. Publish HTML, CSS, and JS for free, without leaving the command line.
+
+``` yml
+name: Deploy Website
+
+on: [push]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    name: Deploying to surge
+    steps:
+      - uses: actions/checkout@v1
+      - name: Install surge and fire deployment
+        uses: actions/setup-node@v1
+        with:
+          node-version: 8
+      - name: Setup .NET Core
+        uses: actions/setup-dotnet@v1 # Setup .NET Core
+        with:
+          dotnet-version: 3.1.300 # Change to your version of .NET Core
+      - name: Build with dotnet
+        run: dotnet build --configuration Release
+      - name: Publish Blazor webassembly using dotnet
+      #create Blazor WebAssembly dist output folder in the project directory
+        run: dotnet publish -c Release --no-build -o publishoutput # Don't build again, just publish
+      - run: npm install -g surge
+      - run: surge publishoutput/wwwroot ${{ secrets.SURGE_DOMAIN }} --token ${{ secrets.SURGE_TOKEN }}
+```
