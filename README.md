@@ -78,7 +78,10 @@ default: run
 run:
 	docker run --rm -it -p 5010:80 -e ASPNETCORE_ENVIRONMENT=Development --name blazor-pwa $(IMAGE)
 ```
-of run docker command directly `docker run --rm -it -p 5010:80 -e ASPNETCORE_ENVIRONMENT=Development --name blazor-pwa piotrzan/blazorindocker`
+
+Alternatively you can run docker command directly
+
+`docker run --rm -it -p 5010:80 -e ASPNETCORE_ENVIRONMENT=Development --name blazor-pwa piotrzan/blazorindocker`
 
 Access the URL on [localhost:5010](http://localhost:5010/)
 
