@@ -2,7 +2,6 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: blazorindocker
-  image: piotrzan/blazorindocker
   labels:
     app: blazor
 spec:
@@ -16,6 +15,23 @@ spec:
     metadata:
       labels:
         app: blazor
-        octopusexport: OctopusExport
-      annotations:
-        owner: atosik
+    spec:
+      containers:
+      - name: nginx
+        image: piotrzan/blazorindocker
+        ports:
+        - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: blazorindocker-svc
+spec:
+  selector:
+    app: blazor
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 80
+  sessionAffinity: None
+  type: LoadBalancer
