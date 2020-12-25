@@ -16,22 +16,25 @@ spec:
       labels:
         app: blazor
     spec:
+      securityContext:
+        runAsNonRoot: true
+        capabilities:
+          drop: ["ALL"]
+        readOnlyRootFilesystem: true
+      readinessProbe:
+        tcpSocket:
+          port: 8080
+        initialDelaySeconds: 5
+        periodSeconds: 10
+      livenessProbe:
+        tcpSocket:
+          port: 8080
+        initialDelaySeconds: 15
+        periodSeconds: 20
+    spec:
       containers:
       - name: nginx
         image: piotrzan/blazorindocker
         ports:
         - containerPort: 80
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: blazorindocker-svc
-spec:
-  selector:
-    app: blazor
-  ports:
-  - port: 80
-    protocol: TCP
-    targetPort: 80
-  sessionAffinity: None
-  type: LoadBalancer
+        imagePullPolicy: Always
