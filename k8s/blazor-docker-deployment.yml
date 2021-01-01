@@ -33,7 +33,7 @@ spec:
         periodSeconds: 20
     spec:
       containers:
-      - name: nginx
+      - name: blazorindocker
         image: piotrzan/blazorindocker
         ports:
         - containerPort: 80
