@@ -3,6 +3,7 @@ WORKDIR /app
 COPY . ./
 RUN dotnet publish -c Release -o output
 FROM nginx:alpine
+RUN apk del curl
 WORKDIR /var/www/web
 COPY --from=build-env /app/output/wwwroot .
 COPY nginx.conf /etc/nginx/nginx.conf
