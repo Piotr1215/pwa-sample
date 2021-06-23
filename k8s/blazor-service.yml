@@ -6,7 +6,7 @@ spec:
   selector:
     app: blazor
   ports:
-  - port: 8180
+  - name: http
     protocol: TCP
     targetPort: 80
   sessionAffinity: None
