@@ -6,8 +6,8 @@ spec:
   selector:
     app: blazor
   ports:
-  - port: 8180
+  - port: 80
     protocol: TCP
     targetPort: 80
   sessionAffinity: None
-  type: LoadBalancer
+  type: ClusterIP
