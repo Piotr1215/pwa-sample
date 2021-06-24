@@ -1,0 +1,21 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: blazor-ingress
+  namespace: default
+spec:
+  defaultBackend:
+    service:
+      name: default-http-backend
+      port:
+        number: 80
+  rules:
+  - host: pwa.decoder.org
+    http:
+      paths:
+      - backend:
+          service:
+            name: blazorindocker-svc
+            port:
+              number: 80
+        pathType: ImplementationSpecific
