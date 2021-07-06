@@ -1,0 +1,16 @@
+name: blazor
+labels:
+  app: blazor
+image: okteto/dotnetcore:3
+environment:
+- ASPNETCORE_ENVIRONMENT=Development
+command: bash
+remote: 22000
+sync:
+- .:/usr/src/app
+forward:
+- 8080:80
+resources:
+  limits:
+    cpu: "1"
+    memory: 2Gi
