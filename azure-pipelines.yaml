@@ -1,0 +1,41 @@
+trigger:
+  branches:
+    include:
+      - master
+
+  paths:
+    exclude:
+    # Exclude README.md from triggering content deployments
+    - README.md
+
+pool:
+  vmImage: "windows-latest"
+
+steps:
+- task: DotNetCoreCLI@2
+  displayName: 'Build Blazor Project'
+  inputs:
+    command: build
+    projects: '**/*.csproj'
+
+- task: DotNetCoreCLI@2
+  displayName: 'Publish'
+  inputs:
+    command: publish
+    arguments: '--configuration Release --output $(Build.ArtifactStagingDirectory)'
+    zipAfterPublish: false
+
+- task: PublishBuildArtifacts@1
+  displayName: "Upload Artifacts"
+  inputs:
+    pathtoPublish: '$(Build.ArtifactStagingDirectory)'
+    artifactName: 'drop'
+
+- task: AzureFileCopy@3
+  displayName: "Copy the bundle to pwa Storage Account"
+  inputs:
+      SourcePath: "$(Build.ArtifactStagingDirectory)/s/wwwroot"
+      azureSubscription: "your-service-connection"
+      Destination: "AzureBlob"
+      storage: "yourblobstorage"
+      ContainerName: "$web"
