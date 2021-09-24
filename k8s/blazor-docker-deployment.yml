@@ -26,4 +26,3 @@ spec:
           runAsNonRoot: true
           capabilities:
             drop: ["ALL"]
-          readOnlyRootFilesystem: true
