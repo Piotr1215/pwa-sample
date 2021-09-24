@@ -16,24 +16,14 @@ spec:
       labels:
         app: blazor
     spec:
-      securityContext:
-        runAsNonRoot: true
-        capabilities:
-          drop: ["ALL"]
-        readOnlyRootFilesystem: true
-      readinessProbe:
-        tcpSocket:
-          port: 8080
-        initialDelaySeconds: 5
-        periodSeconds: 10
-      livenessProbe:
-        tcpSocket:
-          port: 8080
-        initialDelaySeconds: 15
-        periodSeconds: 20
       containers:
       - name: blazorindocker
         image: piotrzan/blazorindocker
         ports:
         - containerPort: 80
         imagePullPolicy: Always
+        securityContext:
+          runAsNonRoot: true
+          capabilities:
+            drop: ["ALL"]
+          readOnlyRootFilesystem: true
