@@ -31,7 +31,6 @@ spec:
           port: 8080
         initialDelaySeconds: 15
         periodSeconds: 20
-    spec:
       containers:
       - name: blazorindocker
         image: piotrzan/blazorindocker
