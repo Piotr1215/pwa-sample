@@ -9,6 +9,6 @@ metadata:
 spec:
   branch: master
   deployment_type: kustomize
-  path: ./k8s
+  path: ./
   source_type: git
   url: ssh://git@github.com/Piotr1215/pwa-sample.git

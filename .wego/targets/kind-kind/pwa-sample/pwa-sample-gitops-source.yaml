@@ -6,7 +6,7 @@ metadata:
   namespace: wego-system
 spec:
   interval: 1m0s
-  path: ./
+  path: ./k8s
   prune: true
   sourceRef:
     kind: GitRepository
