@@ -1,7 +1,14 @@
+---
 apiVersion: wego.weave.works/v1alpha1
 kind: Application
 metadata:
+  labels:
+    wego.weave.works/app-identifier: wego-b3d153b77ce9bc9ca86683b6d0ed00dc
   name: pwa-sample
+  namespace: wego-system
 spec:
+  branch: master
+  deployment_type: kustomize
   path: ./
+  source_type: git
   url: ssh://git@github.com/Piotr1215/pwa-sample.git
