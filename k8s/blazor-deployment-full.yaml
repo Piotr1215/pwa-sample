@@ -20,7 +20,7 @@ spec:
     spec:
       containers:
       - name: blazorindocker
-        image: piotrzan/blazorindocker:1.0.0
+        image: piotrzan/blazorindocker
         securityContext:
           runAsNonRoot: true
           capabilities:
