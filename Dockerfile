@@ -2,7 +2,7 @@ FROM mcr.microsoft.com/dotnet/core/sdk:3.1 AS build-env
 WORKDIR /app
 COPY . ./
 RUN dotnet publish -c Release -o output
-FROM nginx:1.23.2-alpine
+FROM nginx:1.25.4-alpine
 RUN apk del curl
 WORKDIR /var/www/web
 COPY --from=build-env /app/output/wwwroot .
